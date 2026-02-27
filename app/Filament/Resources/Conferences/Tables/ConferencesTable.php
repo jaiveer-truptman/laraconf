@@ -16,7 +16,7 @@ class ConferencesTable
             ->columns([
                 TextColumn::make('name')
                     ->searchable(),
-                TextColumn::make('description')
+            ::make('description')
                     ->searchable(),
                 TextColumn::make('start_date')
                     ->dateTime()
