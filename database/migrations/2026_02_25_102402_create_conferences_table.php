@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\Region;
 use App\Models\Venue;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -19,7 +20,7 @@ return new class extends Migration
             $table->dateTime('start_date');
             $table->dateTime('end_date');
             $table->tinyInteger('status')->comment('0: upcoming, 1: ongoing, 2: completed');
-            $table->string('region');
+            $table->string('region')->default(Region::US->value);
             $table->foreignIdFor(Venue::class)->nullable();
             $table->boolean('is_published')->default(false);
             $table->timestamps();

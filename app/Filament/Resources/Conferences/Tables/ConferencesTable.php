@@ -16,13 +16,8 @@ class ConferencesTable
             ->columns([
                 TextColumn::make('name')
                     ->searchable(),
-            ::make('description')
-                    ->searchable(),
                 TextColumn::make('start_date')
-                    ->dateTime()
-                    ->sortable(),
-                TextColumn::make('end_date')
-                    ->dateTime()
+                    ->dateTime('M d, Y')
                     ->sortable(),
                 TextColumn::make('status')
                     ->searchable(),

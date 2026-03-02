@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\Venues\Schemas;
 
+use App\Enums\Region;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
@@ -18,6 +20,10 @@ class VenueForm
                 TextInput::make('country')
                     ->required(),
                 TextInput::make('postal_code')
+                    ->required(),
+                Select::make('region')
+                    ->options(Region::class)
+                    ->enum(Region::class)
                     ->required(),
             ]);
     }

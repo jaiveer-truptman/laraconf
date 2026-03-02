@@ -16,6 +16,7 @@ class VenueFactory extends Factory
             'city' => fake()->city(),
             'country' => fake()->country(),
             'postal_code' => fake()->postcode(),
+            'region' => fake()->randomElement(\App\Enums\Region::class),
         ];
     }
 }

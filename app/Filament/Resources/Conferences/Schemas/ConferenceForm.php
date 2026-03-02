@@ -2,6 +2,9 @@
 
 namespace App\Filament\Resources\Conferences\Schemas;
 
+use App\Enums\Region;
+use App\Filament\Resources\Venues\Schemas\VenueForm;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
@@ -33,10 +36,10 @@ class ConferenceForm
                     ->helperText('Provide a detailed description of the conference')
                     ->required()
                     ->maxLength(5000),
-                DateTimePicker::make('start_date')
+                DatePicker::make('start_date')
                     ->native(false)
                     ->required(),
-                DateTimePicker::make('end_date')
+                DatePicker::make('end_date')
                     ->native(false)
                     ->required(),
                 Select::make('status')
@@ -46,13 +49,22 @@ class ConferenceForm
                         2 => 'Archived',
                     ])
                     ->required(),
-                TextInput::make('region')
-                    ->required(),
                 Toggle::make('is_published')
-                        ->label('Published'),
-                Select::make('venue_id')
-                    ->relationship('venue', 'name')
+                    ->label('Published'),
+                Select::make('region')
+                    ->live()
+                    ->options(Region::class)
+                    ->enum(Region::class)
                     ->required(),
+                Select::make('venue_id')
+                    ->required()
+                    ->preload()
+                    ->searchable()
+                    ->createOptionForm(fn (Schema $schema) => VenueForm::configure($schema))
+                    ->editOptionForm(fn (Schema $schema) => VenueForm::configure($schema))
+                    ->relationship('venue', 'name',modifyQueryUsing: function ($query, $get) {
+                        $query->where('region', $get('region'));
+                    }),
             ]);
     }
 }
