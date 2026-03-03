@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Conferences\Schemas;
 
 use App\Enums\Region;
 use App\Filament\Resources\Venues\Schemas\VenueForm;
+use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\RichEditor;
@@ -65,6 +66,10 @@ class ConferenceForm
                     ->relationship('venue', 'name',modifyQueryUsing: function ($query, $get) {
                         $query->where('region', $get('region'));
                     }),
+
+                CheckboxList::make('speakers')
+                    ->relationship(titleAttribute: 'name')
+                    ->required()
             ]);
     }
 }
