@@ -92,7 +92,8 @@ class ConferenceForm
 
                 CheckboxList::make('speakers')
                     ->relationship(titleAttribute: 'name')
-                    ->required(),
+                    ->required()
+                    ->columnSpanFull(),
             ]);
     }
 }
