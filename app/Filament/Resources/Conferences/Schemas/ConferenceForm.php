@@ -10,6 +10,7 @@ use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Fieldset;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
@@ -43,7 +44,10 @@ class ConferenceForm
                             ->required()
                             ->maxLength(5000),
 
-                        Grid::make(2)
+                        Grid::make([
+                            'default' => 1,
+                            'md' => 2,
+                        ])
                             ->schema([
                                 DatePicker::make('start_date')
                                     ->native(false)
@@ -54,8 +58,29 @@ class ConferenceForm
                                     ->required()
                                     ->columns(2),
                             ]),
-                    ]),
-                    // ->columnSpanFull(),
+
+                        Grid::make([
+                            'default' => 1,
+                            'md' => 2,
+                        ])
+                            ->schema([
+                                Fieldset::make('Status & Visibility')
+                                    ->columnSpan(2)
+                                    ->schema([
+                                        Select::make('status')
+                                            ->options([
+                                                0 => 'Draft',
+                                                1 => 'Published',
+                                                2 => 'Archived',
+                                            ])
+                                            ->required(),
+                                        Toggle::make('is_published')
+                                            ->label('Published'),
+                                    ]),
+                            ]),
+                    ])
+                    ->columnSpanFull()
+                    ->compact(),
 
                 Section::make('Location')
                     ->schema([
@@ -74,25 +99,14 @@ class ConferenceForm
                             ->relationship('venue', 'name', modifyQueryUsing: function ($query, $get) {
                                 $query->where('region', $get('region'));
                             }),
-                    ]),
+                    ])->columnSpanFull(),
 
-                Section::make('Visibility')
-                    ->description('Manage status and visibility of conference')
+                Fieldset::make('Speakers')
                     ->schema([
-                        Select::make('status')
-                            ->options([
-                                0 => 'Draft',
-                                1 => 'Published',
-                                2 => 'Archived',
-                            ])
+                        CheckboxList::make('speakers')
+                            ->relationship(titleAttribute: 'name')
                             ->required(),
-                        Toggle::make('is_published')
-                            ->label('Published'),
-                    ]),
-
-                CheckboxList::make('speakers')
-                    ->relationship(titleAttribute: 'name')
-                    ->required(),
+                    ])->columnSpanFull(),
             ]);
     }
 }
