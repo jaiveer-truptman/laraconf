@@ -4,6 +4,8 @@ namespace App\Filament\Resources\Conferences\Schemas;
 
 use App\Enums\Region;
 use App\Filament\Resources\Venues\Schemas\VenueForm;
+use Database\Factories\ConferenceFactory;
+use Filament\Actions\Action;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\RichEditor;
@@ -107,6 +109,24 @@ class ConferenceForm
                             ->relationship(titleAttribute: 'name')
                             ->required(),
                     ])->columnSpanFull(),
+
+                Action::make('Fill form')
+                    ->visible(function (string $operation) {
+                        if($operation !== 'create') {
+                            return false;
+                        }
+
+                        if(app()->environment('production')) {
+                            return false;
+                        }
+
+                        return true;
+                    })
+                    ->label('Fill with factory data')
+                    ->action(function ($livewire) {
+                        $data = ConferenceFactory::new()->make()->toArray();
+                        $livewire->form->fill($data);
+                    }),
             ]);
     }
 }
