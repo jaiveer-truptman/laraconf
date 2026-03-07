@@ -2,7 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Conference;
+use App\Models\Speaker;
 use App\Models\User;
+use App\Models\Venue;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -19,5 +22,19 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+        $venue = Venue::factory()->create(['region' => 'IN']);
+
+        Conference::factory()
+            ->for($venue)
+            ->create([
+                'name' => 'Laracon India 2026',
+                'region' => 'IN',
+            ]);
+
+        Speaker::factory()
+            ->count(10)
+            ->withTalks(fake()->numberBetween(1, 3))
+            ->create();
     }
 }
