@@ -15,7 +15,7 @@ class SpeakerFactory extends Factory
     {
 
         $qualification_count = fake()->numberBetween(2, 5);
-        $qualifications = fake()->randomElements(Speaker::QUALIFICATIONS, $qualification_count);
+        $qualifications = fake()->randomElements(array_keys(Speaker::QUALIFICATIONS), $qualification_count);
 
         return [
             'name' => fake()->name(),

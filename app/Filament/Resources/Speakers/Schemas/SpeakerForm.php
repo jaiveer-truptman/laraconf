@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Speakers\Schemas;
 
+use App\Models\Speaker;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Textarea;
@@ -47,19 +48,7 @@ class SpeakerForm
                     ->label('Qualifications')
                     ->schema([
                         CheckboxList::make('qualifications')
-                            ->options([
-                                'business-leader' => 'Business Leader',
-                                'charisma' => 'Charismatic Speaker',
-                                'first-time' => 'First Time Speaker',
-                                'hometown-hero' => 'Hometown Hero',
-                                'humanitarian' => 'Works in Humanitarian Field',
-                                'laracasts-contributor' => 'Laracasts Contributor',
-                                'twitter-influencer' => 'Large Twitter Following',
-                                'youtube-influencer' => 'Large YouTube Following',
-                                'open-source' => 'Open Source Creator / Maintainer',
-                                'unique-perspective' => 'Unique Perspective',
-                            ]
-                            )
+                            ->options(Speaker::QUALIFICATIONS)
                             ->columns([
                                 'md' => 2,
                                 'xl' => 3,
