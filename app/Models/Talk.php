@@ -37,4 +37,22 @@ class Talk extends Model
     {
         return $this->belongsTo(Speaker::class);
     }
+
+    /**
+     * approve the talk.,
+     */
+    public function approve(): void
+    {
+        $this->status = TalkStatus::APPROVED;
+        $this->save();
+    }
+
+    /**
+     * reject the talk.,
+     */
+    public function reject(): void
+    {
+        $this->status = TalkStatus::REJECTED;
+        $this->save();
+    }
 }

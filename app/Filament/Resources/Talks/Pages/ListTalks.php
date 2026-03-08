@@ -25,25 +25,21 @@ class ListTalks extends ListRecords
     {
         return [
             'all' => Tab::make()
-                ->badge(static fn (): int => Talk::count())
-                ->deferBadge(),
+                ->badge(static fn (): int => Talk::count()),
             'submitted' => Tab::make()
                 ->badge(static fn (): int => Talk::whereStatus(TalkStatus::SUBMITTED)->count())
-                ->deferBadge()
                 ->badgeColor('warning')
                 ->modifyQueryUsing(function (Builder $query) {
                     return $query->where('status', TalkStatus::SUBMITTED);
                 }),
             'approved' => Tab::make()
                 ->badge(static fn (): int => Talk::whereStatus(TalkStatus::APPROVED)->count())
-                ->deferBadge()
                 ->badgeColor('success')
                 ->modifyQueryUsing(function (Builder $query) {
                     return $query->where('status', TalkStatus::APPROVED);
                 }),
             'rejected' => Tab::make()
                 ->badge(static fn (): int => Talk::whereStatus(TalkStatus::REJECTED)->count())
-                ->deferBadge()
                 ->badgeColor('danger')
                 ->modifyQueryUsing(function (Builder $query) {
                     return $query->where('status', TalkStatus::REJECTED);
