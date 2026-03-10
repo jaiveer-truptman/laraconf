@@ -5,7 +5,7 @@ namespace App\Filament\Resources\Speakers\Schemas;
 use App\Models\Speaker;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Fieldset;
 use Filament\Schemas\Components\Section;
@@ -26,7 +26,7 @@ class SpeakerForm
                             ->label('Email address')
                             ->email()
                             ->required(),
-                        Textarea::make('bio')
+                        RichEditor::make('bio')
                             ->columnSpanFull(),
                         TextInput::make('twitter_handle')
                             ->prefix('@'),
