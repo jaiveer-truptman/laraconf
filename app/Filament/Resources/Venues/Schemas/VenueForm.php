@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Venues\Schemas;
 
 use App\Enums\Region;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
@@ -24,6 +25,11 @@ class VenueForm
                 Select::make('region')
                     ->options(Region::class)
                     ->enum(Region::class)
+                    ->required(),
+                SpatieMediaLibraryFileUpload::make('images')
+                    ->collection('venue-images')
+                    ->multiple()
+                    ->image()
                     ->required(),
             ]);
     }

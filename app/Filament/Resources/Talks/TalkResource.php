@@ -42,7 +42,7 @@ class TalkResource extends Resource
         return [
             'index' => ListTalks::route('/'),
             'create' => CreateTalk::route('/create'),
-            'edit' => EditTalk::route('/{record}/edit'),
+            // 'edit' => EditTalk::route('/{record}/edit'),
         ];
     }
 }

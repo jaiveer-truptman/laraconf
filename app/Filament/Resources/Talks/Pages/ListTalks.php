@@ -2,9 +2,13 @@
 
 namespace App\Filament\Resources\Talks\Pages;
 
+use App\Enums\TalkStatus;
 use App\Filament\Resources\Talks\TalkResource;
+use App\Models\Talk;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Schemas\Components\Tabs\Tab;
+use Illuminate\Database\Eloquent\Builder;
 
 class ListTalks extends ListRecords
 {
@@ -14,6 +18,32 @@ class ListTalks extends ListRecords
     {
         return [
             CreateAction::make(),
+        ];
+    }
+
+    public function getTabs(): array
+    {
+        return [
+            'all' => Tab::make()
+                ->badge(static fn (): int => Talk::count()),
+            'submitted' => Tab::make()
+                ->badge(static fn (): int => Talk::whereStatus(TalkStatus::SUBMITTED)->count())
+                ->badgeColor('warning')
+                ->modifyQueryUsing(function (Builder $query) {
+                    return $query->where('status', TalkStatus::SUBMITTED);
+                }),
+            'approved' => Tab::make()
+                ->badge(static fn (): int => Talk::whereStatus(TalkStatus::APPROVED)->count())
+                ->badgeColor('success')
+                ->modifyQueryUsing(function (Builder $query) {
+                    return $query->where('status', TalkStatus::APPROVED);
+                }),
+            'rejected' => Tab::make()
+                ->badge(static fn (): int => Talk::whereStatus(TalkStatus::REJECTED)->count())
+                ->badgeColor('danger')
+                ->modifyQueryUsing(function (Builder $query) {
+                    return $query->where('status', TalkStatus::REJECTED);
+                }),
         ];
     }
 }
