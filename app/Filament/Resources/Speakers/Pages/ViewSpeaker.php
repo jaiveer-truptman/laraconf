@@ -14,8 +14,7 @@ class ViewSpeaker extends ViewRecord implements HasInfolists
     protected function getHeaderActions(): array
     {
         return [
-            EditAction::make()
-                ->slideOver(),
+            EditAction::make(),
         ];
     }
 }

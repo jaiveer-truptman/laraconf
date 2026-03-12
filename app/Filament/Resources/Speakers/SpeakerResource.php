@@ -4,9 +4,9 @@ namespace App\Filament\Resources\Speakers;
 
 use App\Enums\TalkStatus;
 use App\Filament\Resources\Speakers\Pages\CreateSpeaker;
-use App\Filament\Resources\Speakers\Pages\EditSpeaker;
 use App\Filament\Resources\Speakers\Pages\ListSpeakers;
 use App\Filament\Resources\Speakers\Pages\ViewSpeaker;
+use App\Filament\Resources\Speakers\RelationManagers\TalksRelationManager;
 use App\Filament\Resources\Speakers\Schemas\SpeakerForm;
 use App\Filament\Resources\Speakers\Tables\SpeakersTable;
 use App\Models\Speaker;
@@ -39,7 +39,7 @@ class SpeakerResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            TalksRelationManager::class,
         ];
     }
 
@@ -80,9 +80,9 @@ class SpeakerResource extends Resource
                                 ->url(fn ($record) => 'https://twitter.com/'.$record->twitter_handle)
                                 ->color('primary'),
                             TextEntry::make('has_spoken')
-                                ->getStateUsing(fn ($record) => $record->talks()->where('status',TalkStatus::APPROVED)->count() > 0 ? 'Previous Speaker' : 'Has Not Spoken')
+                                ->getStateUsing(fn ($record) => $record->talks()->where('status', TalkStatus::APPROVED)->count() > 0 ? 'Previous Speaker' : 'Has Not Spoken')
                                 ->badge()
-                                ->color(function($state) {
+                                ->color(function ($state) {
                                     return $state == 'Previous Speaker' ? 'success' : 'primary';
                                 }),
                         ]),
@@ -99,7 +99,7 @@ class SpeakerResource extends Resource
                         ->listWithLineBreaks()
                         ->bulleted()
                         ->label('Qualifications'),
-                ])
+                ]),
         ]);
     }
 }
