@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Talks\Schemas;
 
 use App\Enums\TalkLength;
 use App\Enums\TalkStatus;
+use App\Filament\Resources\Speakers\RelationManagers\TalksRelationManager;
 use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
@@ -28,6 +29,7 @@ class TalkForm
                                 TextInput::make('title')
                                     ->required(),
                                 Select::make('speaker_id')
+                                    ->hiddenOn(TalksRelationManager::class)
                                     ->relationship('speaker', 'name')
                                     ->required()
                                     ->preload()
@@ -39,6 +41,7 @@ class TalkForm
                                     ->visible(function ($operation) {
                                         return $operation === 'edit';
                                     })
+                                    ->hiddenOn(TalksRelationManager::class)
                                     ->options(TalkStatus::class),
                                 Radio::make('length')
                                     ->label('Talk Length')

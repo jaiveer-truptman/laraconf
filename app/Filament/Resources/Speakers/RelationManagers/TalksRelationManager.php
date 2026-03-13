@@ -2,13 +2,11 @@
 
 namespace App\Filament\Resources\Speakers\RelationManagers;
 
-use App\Filament\Resources\Talks\Schemas\TalkForm;
+use App\Filament\Resources\Talks\TalkResource;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\CreateAction;
-use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Forms\Components\TextInput;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
@@ -26,7 +24,7 @@ class TalksRelationManager extends RelationManager
 
     public function form(Schema $schema): Schema
     {
-        return TalkForm::configure($schema);
+        return TalkResource::form($schema);
     }
 
     public function infolist(Schema $schema): Schema
@@ -47,6 +45,7 @@ class TalksRelationManager extends RelationManager
 
     public function table(Table $table): Table
     {
+        // return TalkResource::table($table); 1st way & clean way
         return $table
             ->recordTitleAttribute('title')
             ->columns([
