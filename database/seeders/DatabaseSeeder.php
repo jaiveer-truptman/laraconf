@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Attendee;
 use App\Models\Conference;
 use App\Models\Speaker;
 use App\Models\User;
@@ -26,6 +27,7 @@ class DatabaseSeeder extends Seeder
         $venue = Venue::factory()->create(['region' => 'IN']);
 
         Conference::factory()
+            ->has(Attendee::factory()->count(10))
             ->for($venue)
             ->create([
                 'name' => 'Laracon India 2026',
