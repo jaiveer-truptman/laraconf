@@ -9,4 +9,11 @@ class Attendee extends Model
 {
     /** @use HasFactory<\Database\Factories\AttendeeFactory> */
     use HasFactory;
+
+    protected function casts()
+    {
+        return [
+            'is_paid' => 'boolean',
+        ];
+    }
 }

@@ -34,13 +34,6 @@ class ConferenceForm
                             ->required(),
 
                         RichEditor::make('description')
-                            ->toolbarButtons([
-                                'bold',
-                                'italic',
-                                'underline',
-                                'link',
-                                'codeBlock',
-                            ])
                             ->label('Conference Description')
                             ->helperText('Provide a detailed description of the conference')
                             ->required()
@@ -108,16 +101,16 @@ class ConferenceForm
                         CheckboxList::make('speakers')
                             ->relationship(titleAttribute: 'name')
                             ->required()
-                    ->columnSpanFull(),
+                            ->columnSpanFull(),
                     ])->columnSpanFull(),
 
                 Action::make('Fill form')
                     ->visible(function (string $operation) {
-                        if($operation !== 'create') {
+                        if ($operation !== 'create') {
                             return false;
                         }
 
-                        if(app()->environment('production')) {
+                        if (app()->environment('production')) {
                             return false;
                         }
 
