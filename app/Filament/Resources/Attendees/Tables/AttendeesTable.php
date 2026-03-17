@@ -30,13 +30,8 @@ class AttendeesTable
                 IconColumn::make('is_paid')
                     ->boolean(),
                 TextColumn::make('conference_id')
-                    ->numeric()
-                    ->sortable(),
+                    ->state(fn($record) => $record->conference->name),
                 TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

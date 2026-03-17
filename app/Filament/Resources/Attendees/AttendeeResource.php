@@ -7,6 +7,7 @@ use App\Filament\Resources\Attendees\Pages\EditAttendee;
 use App\Filament\Resources\Attendees\Pages\ListAttendees;
 use App\Filament\Resources\Attendees\Schemas\AttendeeForm;
 use App\Filament\Resources\Attendees\Tables\AttendeesTable;
+use App\Filament\Resources\Attendees\Widgets\AttendeesStatsWidget;
 use App\Models\Attendee;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -45,6 +46,13 @@ class AttendeeResource extends Resource
             'index' => ListAttendees::route('/'),
             'create' => CreateAttendee::route('/create'),
             'edit' => EditAttendee::route('/{record}/edit'),
+        ];
+    }
+
+     public static function getWidgets(): array
+    {
+        return [
+            AttendeesStatsWidget::class
         ];
     }
 }
