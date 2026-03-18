@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Attendees\Pages;
 
 use App\Filament\Resources\Attendees\AttendeeResource;
+use App\Filament\Resources\Attendees\Widgets\AttendeeChart;
 use App\Filament\Resources\Attendees\Widgets\AttendeesStatsWidget;
 use Filament\Actions\CreateAction;
 use Filament\Pages\Concerns\ExposesTableToWidgets;
@@ -25,6 +26,7 @@ class ListAttendees extends ListRecords
     {
         return [
             AttendeesStatsWidget::class,
+            AttendeeChart::class,
         ];
     }
 }

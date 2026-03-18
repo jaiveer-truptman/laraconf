@@ -7,6 +7,7 @@ use App\Filament\Resources\Attendees\Pages\EditAttendee;
 use App\Filament\Resources\Attendees\Pages\ListAttendees;
 use App\Filament\Resources\Attendees\Schemas\AttendeeForm;
 use App\Filament\Resources\Attendees\Tables\AttendeesTable;
+use App\Filament\Resources\Attendees\Widgets\AttendeeChart;
 use App\Filament\Resources\Attendees\Widgets\AttendeesStatsWidget;
 use App\Models\Attendee;
 use BackedEnum;
@@ -49,10 +50,11 @@ class AttendeeResource extends Resource
         ];
     }
 
-     public static function getWidgets(): array
+    public static function getWidgets(): array
     {
         return [
-            AttendeesStatsWidget::class
+            AttendeesStatsWidget::class,
+            AttendeeChart::class,
         ];
     }
 }
