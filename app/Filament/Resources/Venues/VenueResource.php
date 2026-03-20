@@ -14,11 +14,15 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 
+use UnitEnum;
+
 class VenueResource extends Resource
 {
     protected static ?string $model = Venue::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedGlobeAmericas;
+
+    protected static string | UnitEnum | null $navigationGroup = 'Settings';
 
     protected static ?string $recordTitleAttribute = 'venue_name';
 
