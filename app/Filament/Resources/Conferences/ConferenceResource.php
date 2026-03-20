@@ -23,6 +23,9 @@ class ConferenceResource extends Resource
 
     protected static string | UnitEnum | null $navigationGroup = 'Standard';
 
+    protected static ?string $recordTitleAttribute = 'name';
+
+
     public static function form(Schema $schema): Schema
     {
         return ConferenceForm::configure($schema);

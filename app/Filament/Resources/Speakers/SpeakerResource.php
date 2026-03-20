@@ -19,6 +19,7 @@ use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 use UnitEnum;
 
 
@@ -28,7 +29,7 @@ class SpeakerResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedSpeakerWave;
     protected static string | UnitEnum | null $navigationGroup = 'Standard';
-
+    protected static ?string $recordTitleAttribute = 'name';
 
     public static function form(Schema $schema): Schema
     {
@@ -105,5 +106,14 @@ class SpeakerResource extends Resource
                         ->label('Qualifications'),
                 ]),
         ]);
+    }
+
+    public static function getGlobalSearchResultDetails(Model $record): array
+    {
+        $hasSpeaker =  $record->talks()->where('status', TalkStatus::APPROVED)->count() > 0 ? 'Previous Speaker' : 'Has Not Spoken';
+        return [
+            'email' => $record->email,
+            'experience' => $hasSpeaker
+        ];
     }
 }

@@ -24,7 +24,7 @@ class VenueResource extends Resource
 
     protected static string | UnitEnum | null $navigationGroup = 'Settings';
 
-    protected static ?string $recordTitleAttribute = 'venue_name';
+    // protected static ?string $recordTitleAttribute = 'name';
 
     public static function form(Schema $schema): Schema
     {
